@@ -16,7 +16,7 @@ namespace MyTime.ViewModel
     public class MainWindowViewModel : ObservableRecipient
     {
         public ICommand DOBCommand { get; set; }
-        public DateTime DOB { get; set; }
+        public DateTime? DOB { get; set; }
         public string MyElapsedTime { get; set; }
 
         public static bool IsInDesignMode
@@ -38,7 +38,7 @@ namespace MyTime.ViewModel
             DOBCommand = new RelayCommand(
             () =>
             {
-                myTimeLogic.Calculate(DOB);
+                myTimeLogic.Calculate((DateTime)DOB);
             }
             );
 
@@ -46,6 +46,12 @@ namespace MyTime.ViewModel
             {
                 MyElapsedTime = msg;
                 OnPropertyChanged(nameof(MyElapsedTime));
+            });
+
+            Messenger.Register<MainWindowViewModel, object, string>(this, "DOBStatus", (recipient, msg) =>
+            {
+                DOB = (DateTime)msg;
+                OnPropertyChanged(nameof(DOB));
             });
         }
     }

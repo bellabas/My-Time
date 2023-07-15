@@ -1,6 +1,8 @@
 ﻿using Microsoft.Toolkit.Mvvm.Messaging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,29 +23,55 @@ namespace MyTime.Logic
             this.messenger = messenger;
             this.timer = new Timer();
             timer.Interval = 1000;
-            timer.Elapsed += CalculateNew;
+            timer.Elapsed += CalculateEvent;
+            LoadSave();
         }
 
         public void Calculate(DateTime dob)
         {
             this.dob = dob;
-            DateTime currentTime = DateTime.Now;
+            SaveState();
+            MyElapsedTime = DateTime.Now - dob;
+            messenger.Send(FormatTimeSpan(MyElapsedTime), nameof(MyElapsedTime) + "Status");
+            timer.Start();
+        }
 
-            MyElapsedTime = currentTime - dob;
-
+        private void Calculate()
+        {
+            MyElapsedTime = DateTime.Now - dob;
             messenger.Send(FormatTimeSpan(MyElapsedTime), nameof(MyElapsedTime) + "Status");
             timer.Start();
         }
 
         private string FormatTimeSpan(TimeSpan timeSpan)
         {
-            return $"{(int)timeSpan.TotalHours}:{timeSpan.Minutes}:{timeSpan.Seconds}";
+            return $"{((int)timeSpan.TotalHours).ToString("N0").Replace(",", " ")}:{timeSpan.Minutes.ToString("00")}:{timeSpan.Seconds.ToString("00")}";
         }
 
-        private void CalculateNew(object sender, ElapsedEventArgs arg)
+        private void CalculateEvent(object sender, ElapsedEventArgs arg)
         {
             MyElapsedTime = MyElapsedTime.Add(new TimeSpan(0, 0, 1));
             messenger.Send(FormatTimeSpan(MyElapsedTime), nameof(MyElapsedTime) + "Status");
+            messenger.Send((object)this.dob, "DOBStatus");
         }
+
+        private void SaveState()
+        {
+            string fileName = "save.json";
+            string jsonString = JsonConvert.SerializeObject(this.dob);
+            File.WriteAllText(fileName, jsonString);
+        }
+
+        private void LoadSave()
+        {
+            if (File.Exists("save.json"))
+            {
+                string jsonContent = File.ReadAllText("save.json");
+                this.dob = JsonConvert.DeserializeObject<DateTime>(jsonContent);
+                messenger.Send((object)this.dob, "DOBStatus");
+                Calculate();
+            }
+        }
+
     }
 }

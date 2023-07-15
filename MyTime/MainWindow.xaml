@@ -12,10 +12,17 @@
     </Window.DataContext>
     
     <Grid>
-        <StackPanel>
-            <Label Content="Date of Birth" />
-            <DatePicker x:Name="dob_datepicker" FirstDayOfWeek="Monday" SelectedDateChanged="dob_datepicker_SelectedDateChanged" SelectedDate="{Binding DOB, Mode=OneWayToSource}" />
-            <Label Content="{Binding MyElapsedTime}"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.2*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        <StackPanel HorizontalAlignment="Left" Margin="20" Grid.Row="0">
+            <Label Content="Date of Birth" FontSize="20" FontWeight="Medium" FontFamily="Arial"/>
+            <DatePicker x:Name="dob_datepicker" FirstDayOfWeek="Monday" SelectedDateChanged="dob_datepicker_SelectedDateChanged" SelectedDate="{Binding DOB, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="160" FontSize="20" FontFamily="Arial" FontWeight="Bold"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <Label Content="Hour:Minute:Second" FontFamily="Arial" FontSize="20" FontWeight="Bold" Margin="0 70 0 0"/>
+            <Label Content="{Binding MyElapsedTime}" FontFamily="Arial" FontSize="30" FontWeight="Bold"/>
         </StackPanel>
     </Grid>
 </Window>
