@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyTime.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,11 @@ namespace MyTime
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void dob_datepicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            (DataContext as MainWindowViewModel).DOBCommand.Execute(null);
         }
     }
 }
