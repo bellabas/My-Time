@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MyTime"
         xmlns:vms="clr-namespace:MyTime.ViewModel"
         mc:Ignorable="d"
-        Title="My Time" Height="450" Width="800">
+        Title="My Time" Height="400" Width="650">
     <Window.DataContext>
         <vms:MainWindowViewModel/>
     </Window.DataContext>
@@ -16,12 +16,12 @@
             <RowDefinition Height="1.2*"/>
             <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
-        <StackPanel HorizontalAlignment="Left" Margin="20" Grid.Row="0">
+        <StackPanel Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20 0 0 0">
             <Label Content="Date of Birth" FontSize="20" FontWeight="Medium" FontFamily="Arial"/>
-            <DatePicker x:Name="dob_datepicker" FirstDayOfWeek="Monday" SelectedDateChanged="dob_datepicker_SelectedDateChanged" SelectedDate="{Binding DOB, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="160" FontSize="20" FontFamily="Arial" FontWeight="Bold"/>
+            <DatePicker x:Name="dob_datepicker" FirstDayOfWeek="Monday" SelectedDateChanged="dob_datepicker_SelectedDateChanged" SelectedDate="{Binding DOB, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  FontSize="20" FontFamily="Arial" FontWeight="Bold"/>
         </StackPanel>
-        <StackPanel Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center">
-            <Label Content="Hour:Minute:Second" FontFamily="Arial" FontSize="20" FontWeight="Bold" Margin="0 70 0 0"/>
+        <StackPanel Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Center" Margin="0 20 0 0">
+            <Label Content="Hour:Minute:Second" FontFamily="Arial" FontSize="20" FontWeight="Bold"/>
             <Label Content="{Binding MyElapsedTime}" FontFamily="Arial" FontSize="30" FontWeight="Bold"/>
         </StackPanel>
     </Grid>
