@@ -11,18 +11,18 @@
         <vms:MainWindowViewModel/>
     </Window.DataContext>
     
-    <Grid>
+    <Grid Background="GhostWhite">
         <Grid.RowDefinitions>
             <RowDefinition Height="1.2*"/>
             <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20 0 0 0">
             <Label Content="Date of Birth" FontSize="20" FontWeight="Medium" FontFamily="Arial"/>
-            <DatePicker x:Name="dob_datepicker" FirstDayOfWeek="Monday" SelectedDateChanged="dob_datepicker_SelectedDateChanged" SelectedDate="{Binding DOB, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  FontSize="20" FontFamily="Arial" FontWeight="Bold"/>
+            <DatePicker x:Name="dob_datepicker" FirstDayOfWeek="Monday" SelectedDateChanged="dob_datepicker_SelectedDateChanged" SelectedDate="{Binding DOB, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  FontSize="20" FontFamily="Arial" FontWeight="Bold" Foreground="Maroon"/>
         </StackPanel>
         <StackPanel Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Center" Margin="0 20 0 0">
-            <Label Content="HOURS:MINUTES:SECONDS" FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
-            <Label Content="{Binding MyElapsedTime}" FontFamily="Arial" FontSize="30" FontWeight="Bold"/>
+            <Label Content="HOURS:MINUTES:SECONDS" FontFamily="Arial" FontSize="14" FontWeight="Bold" Foreground="LightGreen"/>
+            <Label Content="{Binding MyElapsedTime}" FontFamily="Arial" FontSize="30" FontWeight="Bold" Foreground="LimeGreen"/>
         </StackPanel>
     </Grid>
 </Window>
